@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="dmykos_ip_store.database_store_driver" class="Dmykos\IpStoreBundle\DatabaseStoreDriver" public="false">
+            <argument type="service" id="dmykos_ip_store.repository.ip_store_repository" />
+        </service>
+
+        <service id="dmykos_ip_store.store_driver_interface"  alias="dmykos_ip_store.database_store_driver" public="false">
+        </service>
+
+        <service id="dmykos_ip_store.api_controller" class="Dmykos\IpStoreBundle\Controller\ApiController" public="true">
+            <argument type="service" id="dmykos_ip_store.store_driver_interface" />
+            <argument type="service" id="Symfony\Component\Validator\Validator\ValidatorInterface"  />
+        </service>
+
+        <service id="dmykos_ip_store.repository.ip_store_repository" class="Dmykos\IpStoreBundle\Repository\IpStoreRepository" public="false">
+            <argument type="service" id="Symfony\Bridge\Doctrine\RegistryInterface"  />
+        </service>
+
+    </services>
+</container>
