@@ -9,6 +9,14 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('dmykos_ip_store');
+        $rootNode
+            ->children()
+                ->scalarNode('store_driver')->defaultNull()->info('StoreDriverInterface implementation')->end()
+            ->end()
+        ;
 
+        return $treeBuilder;
     }
 }
