@@ -5,32 +5,26 @@ namespace Dmykos\IpStoreBundle;
 
 
 use Dmykos\IpStoreBundle\Entity\IpModel;
-use Dmykos\IpStoreBundle\Repository\IpStoreRepository;
+use Dmykos\IpStoreBundle\Repository\DatabaseStoreRepository;
 
 class DatabaseStoreDriver implements StoreDriverInterface
 {
     /**
-     * @var IpStoreRepository
+     * @var DatabaseStoreRepository
      */
-    private $ipStoreRepository;
+    private $databaseStoreRepository;
 
-    public function __construct(IpStoreRepository $ipStoreRepository) {
+    public function __construct(DatabaseStoreRepository $databaseStoreRepository) {
 
-        $this->ipStoreRepository = $ipStoreRepository;
+        $this->databaseStoreRepository = $databaseStoreRepository;
     }
 
     public function add( IpModel $ipModel ): int {
-        return $this->ipStoreRepository->add($ipModel);
+        return $this->databaseStoreRepository->add($ipModel);
     }
 
     public function query( IpModel $ipModel ): int {
-        $ipStore = $this->ipStoreRepository->findOneBy(['ip'=> $ipModel->getIp()]);
-
-        if (!$ipStore){
-            $count = 0;
-        } else{
-            $count = $ipStore->getCount();
-        }
+        $count = $this->databaseStoreRepository->query($ipModel);
 
         return $count;
     }

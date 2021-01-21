@@ -6,7 +6,7 @@
 
     <services>
         <service id="dmykos_ip_store.database_store_driver" class="Dmykos\IpStoreBundle\DatabaseStoreDriver" public="false">
-            <argument type="service" id="dmykos_ip_store.repository.ip_store_repository" />
+            <argument type="service" id="dmykos_ip_store.repository.database_store_repository" />
         </service>
 
         <service id="dmykos_ip_store.store_driver_interface"  alias="dmykos_ip_store.database_store_driver" public="false">
@@ -17,8 +17,12 @@
             <argument type="service" id="Symfony\Component\Validator\Validator\ValidatorInterface"  />
         </service>
 
-        <service id="dmykos_ip_store.repository.ip_store_repository" class="Dmykos\IpStoreBundle\Repository\IpStoreRepository" public="false">
-            <argument type="service" id="Symfony\Bridge\Doctrine\RegistryInterface"  />
+        <service id="dmykos_ip_store.repository.database_store_repository" class="Dmykos\IpStoreBundle\Repository\DatabaseStoreRepository" public="false">
+            <argument type="service" id="dmykos_ip_store.pdo_container"  />
+        </service>
+
+        <service id="dmykos_ip_store.pdo_container" class="Dmykos\IpStoreBundle\PDOContainer" public="false">
+            <argument type="service" id="doctrine.dbal.default_connection"  />
         </service>
 
     </services>
