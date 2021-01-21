@@ -15,7 +15,7 @@ class DatabaseStoreDriverTest extends TestCase
         $ipModel = new IpModel();
         $ipModel->setIp('255.255.255.0');
 
-        $ipStoreRepository = $this->getMockBuilder(\Dmykos\IpStoreBundle\Repository\IpStoreRepository::class)
+        $ipStoreRepository = $this->getMockBuilder(\Dmykos\IpStoreBundle\Repository\DatabaseStoreRepository::class)
              ->disableOriginalConstructor()
              ->getMock();
 
@@ -35,13 +35,13 @@ class DatabaseStoreDriverTest extends TestCase
         $ipModel = new IpModel();
         $ipModel->setIp('255.255.255.0');
 
-        $ipStoreRepository = $this->getMockBuilder(\Dmykos\IpStoreBundle\Repository\IpStoreRepository::class)
+        $ipStoreRepository = $this->getMockBuilder(\Dmykos\IpStoreBundle\Repository\DatabaseStoreRepository::class)
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
-        $ipStoreRepository->expects($this->once())->method('findOneBy')
+        $ipStoreRepository->expects($this->once())->method('query')
                           ->with(
-                              ['ip' => $ipModel->getIp()]
+                              $ipModel
                           );
         $databaseStoreDriver = new DatabaseStoreDriver($ipStoreRepository);
         $databaseStoreDriver->query($ipModel);
