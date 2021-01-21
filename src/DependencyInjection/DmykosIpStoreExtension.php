@@ -16,24 +16,20 @@ class DmykosIpStoreExtension extends Extension
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
-
+        //d($config);
         if (null !== $config['store_driver']) {
-            $container->setAlias('dmykos_ip_store.store_driver_interface', $config['store_driver']);
+            if($config['store_driver'] == "dmykos_ip_store.database_store_driver"){
+                $container->setAlias('dmykos_ip_store.store_driver_interface', 'dmykos_ip_store.database_store_driver');
+
+                $definition = $container->getDefinition('dmykos_ip_store.repository.database_store_repository');
+                $arguments = $config['database'];
+                $definition->setArgument(1, $arguments['table_name']);
+                $definition->setArgument(2, $arguments['id_column_name']);
+                $definition->setArgument(3, $arguments['id_column_value']);
+                $definition->setArgument(4, $arguments['key_column_name']);
+            } else{
+                $container->setAlias('dmykos_ip_store.store_driver_interface', $config['store_driver']);
+            }
         }
     }
-
- /*   public function prepend(ContainerBuilder $container)
-    {
-        $doctrineConfig = [];
-        $doctrineConfig['orm']['mappings'][] = array(
-            'name' => 'DmykosIpStoreBundle',
-            'is_bundle' => true,
-            'type' => 'annotation',
-            'prefix' => 'Dmykos\IpStoreBundle\Entity',
-            'dir' => 'Entity'
-        );
-        $container->prependExtensionConfig('doctrine', $doctrineConfig);
-
-
-    }*/
 }
