@@ -4,7 +4,6 @@ namespace Dmykos\IpStoreBundle\Repository;
 
 use Dmykos\IpStoreBundle\Entity\IpModel;
 use Doctrine\DBAL\Driver\Connection;
-use Doctrine\DBAL\Exception\RetryableException;
 use Throwable;
 
 
