@@ -15,7 +15,7 @@
         "ext-pdo": "*",
         "symfony/framework-bundle": "^3.4 || ^4.4",
         "symfony/validator": "^3.4 || ^4.4",
-        "doctrine/doctrine-bundle": "^1.10 || ^1.12"
+        "symfony/orm-pack": "*"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +29,6 @@
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.4 || ^4.4",
-        "symfony/framework-bundle": "^3.4 || ^4.4",
         "symfony/browser-kit": "^3.4 || ^4.4"
     }
 }
