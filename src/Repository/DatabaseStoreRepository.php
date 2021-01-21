@@ -4,8 +4,6 @@ namespace Dmykos\IpStoreBundle\Repository;
 
 use Dmykos\IpStoreBundle\Entity\IpModel;
 use Dmykos\IpStoreBundle\PDOContainer;
-use Doctrine\DBAL\Driver\Connection;
-use Throwable;
 
 
 class DatabaseStoreRepository

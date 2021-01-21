@@ -15,7 +15,6 @@
         "ext-pdo": "*",
         "symfony/framework-bundle": "^4.2",
         "symfony/validator": "^4.2",
-        "doctrine/orm": "^2.6",
         "doctrine/doctrine-bundle": "^1.10"
     },
     "autoload": {
