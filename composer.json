@@ -15,7 +15,8 @@
         "ext-pdo": "*",
         "symfony/framework-bundle": "^3.4 || ^4.4",
         "symfony/validator": "^3.4 || ^4.4",
-        "symfony/orm-pack": "*"
+        "doctrine/doctrine-bundle": "^1.12",
+        "doctrine/orm": "^2.7"
     },
     "autoload": {
         "psr-4": {
