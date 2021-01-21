@@ -93,10 +93,20 @@ class DatabaseStoreRepository
                 $conn->commit();
 
                 return $count;
-            } catch (Throwable $e) {
-                $conn->rollback();
-
-                ++$retries;
+            } catch(\PDOException $e)
+            {
+                if(
+                    $e->errorInfo[0]==40001 /*(ISO/ANSI) Serialization failure, e.g. timeout or deadlock*/
+                    && $conn->getAttribute(\PDO::ATTR_DRIVER_NAME)=="mysql"
+                    && $e->errorInfo[1]==1213  /*(MySQL SQLSTATE) ER_LOCK_DEADLOCK*/
+                )
+                {
+                    $conn->rollback();
+                    ++$retries;
+                }
+                else {
+                    throw $e;
+                }
             }
         } while ($retries < 10);
 

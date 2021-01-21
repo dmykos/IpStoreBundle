@@ -20,6 +20,8 @@ class PDOContainer {
     public function __construct(Connection $connection) {
         $this->connection = $connection;
         $this->pdoConnection = $connection->getWrappedConnection();
+        //error mode is exception
+        $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
 
