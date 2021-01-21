@@ -18,6 +18,10 @@
         </service>
 
         <service id="dmykos_ip_store.repository.database_store_repository" class="Dmykos\IpStoreBundle\Repository\DatabaseStoreRepository" public="false">
+            <argument type="service" id="dmykos_ip_store.pdo_container"  />
+        </service>
+
+        <service id="dmykos_ip_store.pdo_container" class="Dmykos\IpStoreBundle\PDOContainer" public="false">
             <argument type="service" id="doctrine.dbal.default_connection"  />
         </service>
 

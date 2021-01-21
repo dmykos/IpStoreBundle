@@ -3,6 +3,7 @@
 namespace Dmykos\IpStoreBundle\Repository;
 
 use Dmykos\IpStoreBundle\Entity\IpModel;
+use Dmykos\IpStoreBundle\PDOContainer;
 use Doctrine\DBAL\Driver\Connection;
 use Throwable;
 
@@ -16,14 +17,13 @@ class DatabaseStoreRepository
     private $keyColumnName;
 
     public function __construct(
-        Connection $connection,
+        PDOContainer $pdoContainer,
         $tableName,
         $idColumnName,
         $idColumnValue,
         $keyColumnName
     ) {
-
-        $this->connection = $connection;
+        $this->connection = $pdoContainer->getPdoConnection();
         $this->tableName = $tableName;
         $this->idColumnName = $idColumnName;
         $this->idColumnValue = $idColumnValue;
@@ -49,7 +49,6 @@ class DatabaseStoreRepository
     public function add( IpModel $ipModel ): int {
 
         $conn = $this->connection;
-
         $retries = 0;
         do {
             $conn->beginTransaction();
